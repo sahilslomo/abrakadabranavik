@@ -50,7 +50,8 @@ export default function TopicsPage() {
 
   const params = useParams();
 
-  const classId = params.classId as string;
+  const classId =
+    params.classId as string;
 
   const functionId =
     params.functionId as string;
@@ -64,7 +65,8 @@ export default function TopicsPage() {
     useState(true);
 
   const functionTitle =
-    functionNames?.[functionId] || "Topics";
+    functionNames?.[functionId] ||
+    "Topics";
 
   /* =========================
      FETCH TOPICS
@@ -78,15 +80,24 @@ export default function TopicsPage() {
         const q = query(
           collection(db, "topics"),
 
-          where("classId", "==", classId),
+          where(
+            "classId",
+            "==",
+            classId
+          ),
 
-          where("functionId", "==", functionId)
+          where(
+            "functionId",
+            "==",
+            functionId
+          )
         );
 
         const querySnapshot =
           await getDocs(q);
 
-        const fetchedTopics: any[] = [];
+        const fetchedTopics: any[] =
+          [];
 
         querySnapshot.forEach((doc) => {
           fetchedTopics.push({
@@ -130,7 +141,9 @@ export default function TopicsPage() {
           <div className="flex items-center justify-between mb-6">
 
             <button
-              onClick={() => router.back()}
+              onClick={() =>
+                router.back()
+              }
               className="w-11 h-11 rounded-2xl border border-gray-200 bg-white flex items-center justify-center"
             >
               <ArrowLeft size={20} />
@@ -158,8 +171,9 @@ export default function TopicsPage() {
 
             <h1 className="text-2xl font-bold tracking-tight">
               Hi,{" "}
-              {user?.email?.split("@")[0] ||
-                "Navigator"}
+              {user?.email?.split(
+                "@"
+              )[0] || "Navigator"}
             </h1>
 
           </div>
@@ -187,7 +201,8 @@ export default function TopicsPage() {
             </h2>
 
             <p className="text-gray-500 mt-2 leading-6">
-              Browse all available oral preparation topics.
+              Browse all available oral
+              preparation topics.
             </p>
 
           </div>
@@ -212,50 +227,66 @@ export default function TopicsPage() {
 
           <div className="space-y-4">
 
-            {topics.map((topic: any) => (
-              <button
-                key={topic.id}
-                onClick={() =>
-                  router.push(
-                    `/questions/${topic.id}`
-                  )
-                }
-                className="w-full bg-white border border-gray-200 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-between group"
-              >
+            {topics.map(
+              (topic: any) => (
+                <button
+                  key={topic.id}
+                  onClick={() =>
+                    router.push(
+                      `/questions/${topic.id}`
+                    )
+                  }
+                  className="w-full bg-white border border-gray-200 rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-200 flex items-center justify-between group"
+                >
 
-                {/* LEFT */}
+                  {/* LEFT */}
 
-                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-4">
 
-                  <div className="w-14 h-14 rounded-2xl bg-black text-white flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-2xl bg-black text-white flex items-center justify-center">
 
-                    <BookOpen size={24} />
+                      <BookOpen size={24} />
+
+                    </div>
+
+                    <div className="text-left">
+
+                      <h3 className="text-lg font-semibold">
+                        {topic.title}
+                      </h3>
+
+                      <p className="text-sm text-gray-500 mt-1">
+                        {
+                          topic.description
+                        }
+                      </p>
+
+                    </div>
 
                   </div>
 
-                  <div className="text-left">
+                  {/* RIGHT */}
 
-                    <h3 className="text-lg font-semibold">
-                      {topic.title}
-                    </h3>
+                  <ChevronRight
+                    size={22}
+                    className="text-gray-400 group-hover:translate-x-1 transition-all"
+                  />
 
-                    <p className="text-sm text-gray-500 mt-1">
-                      {topic.description}
-                    </p>
+                </button>
+              )
+            )}
 
-                  </div>
+            {/* EMPTY STATE */}
 
-                </div>
+            {topics.length === 0 && (
+              <div className="bg-white border border-gray-200 rounded-3xl p-8 text-center">
 
-                {/* RIGHT */}
+                <p className="text-gray-500">
+                  No topics added yet.
+                </p>
 
-                <ChevronRight
-                  size={22}
-                  className="text-gray-400 group-hover:translate-x-1 transition-all"
-                />
-
-              </button>
-            ))}
+              </div>
+            )}
 
           </div>
 
@@ -270,7 +301,9 @@ export default function TopicsPage() {
         <div className="max-w-md mx-auto flex items-center justify-around py-3">
 
           <button
-            onClick={() => router.push("/")}
+            onClick={() =>
+              router.push("/")
+            }
             className="flex flex-col items-center text-gray-500"
           >
 
